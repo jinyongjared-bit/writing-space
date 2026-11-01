@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build outputs and caches
+dist/
+out/
+release/
+.electron-cache/
+.electron-builder-cache/
+.mac-arm64-build/
+*.exe
+*.blockmap
+*.asar
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.key
+ai-secrets.json
+
+# Runtime data and backups
+user-data/
+backups/
+artifacts/
+writing-space-sync-v1/
+*.db
+*.sqlite
+*.sqlite3
+*.tmp
+*.bak
+*.log
+
+# Test and operating-system files
+.ai-test-data-*/
+.document-format-test/
+.installed-smoke-*/
+.runtime-test-*/
+.DS_Store
+Thumbs.db

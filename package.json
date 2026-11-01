@@ -1,0 +1,91 @@
+{
+  "name": "writing-space",
+  "version": "0.9.6",
+  "description": "本地优先的沉浸式桌面写作工具，支持大纲、批注、版本管理、AI审校和多设备同步",
+  "author": "章近勇",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check main.js && node --check preload.js && node --check app.js && node --check sync-engine.js && node --check export-utils.js && node --check document-formats.js && node --check pdf-writer.js && node --check scripts/build-win.js && node --check scripts/build-win-installer.js && node --check scripts/generate-icons.js",
+    "generate:icons": "electron scripts/generate-icons.js",
+    "build:win": "node scripts/build-win.js",
+    "build:win:installer": "node scripts/build-win-installer.js",
+    "build:win:portable": "electron-builder --win portable --x64",
+    "build:mac": "electron-builder --mac --arm64"
+  },
+  "devDependencies": {
+    "electron": "30.5.1",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "com.writingspace.app",
+    "productName": "写作空间",
+    "executableName": "WritingSpace",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "extraResources": [
+      {
+        "from": "assets/icon.ico",
+        "to": "writing-space-icon-v2.ico"
+      }
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "styles.css",
+      "app.js",
+      "sync-engine.js",
+      "export-utils.js",
+      "document-formats.js",
+      "pdf-writer.js",
+      "assets/**/*"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "写作空间",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh",
+      "artifactName": "写作空间-安装程序-0.9.6-win11-x64.exe"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.icns",
+      "identity": null,
+      "artifactName": "写作空间-0.9.6-macOS-Apple-Silicon.zip"
+    }
+  },
+  "dependencies": {
+    "docx": "^9.5.1",
+    "mammoth": "^1.11.0",
+    "pdfjs-dist": "^5.4.394",
+    "turndown": "^7.2.1",
+    "turndown-plugin-gfm": "^1.0.2"
+  }
+}
